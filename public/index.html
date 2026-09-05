@@ -7,57 +7,160 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Jharkhand Societal Challenge Platform</h1>
-        <p>Connecting Citizens, Universities, and Industries for Real Solutions</p>
-    </header>
 
-    <div class="container">
-        <!-- Left Side: Form -->
-        <section id="submission-form">
-            <h2>Submit a Societal Challenge</h2>
-            <form id="challengeForm">
-                <label>Challenge Title</label>
-                <input type="text" id="title" name="title" required>
-
-                <label>Category</label>
-                <select id="category" name="category" required>
-                    <option value="">-- Select Category --</option>
-                    <option value="Agriculture">Agriculture</option>
-                    <option value="Water">Water Management</option>
-                    <option value="Sanitation">Sanitation</option>
-                    <option value="Disaster">Disaster Management</option>
-                    <option value="Education">Education</option>
-                    <option value="Healthcare">Healthcare</option>
-                    <option value="Urban">Urban Infrastructure</option>
-                </select>
-
-                <label>Detailed Description</label>
-                <textarea id="description" name="description" rows="4" required></textarea>
-
-                <label>Location</label>
-                <div class="location-input">
-                    <input type="text" id="location" name="location" placeholder="Enter address or use GPS" required>
-                    <button type="button" id="gpsBtn">📡 GPS</button>
+    <!-- PART 1: OFFICIAL GOVERNMENT HOMEPAGE -->
+    <div id="homePage">
+        <!-- Header Section -->
+        <header class="gov-header">
+            <div class="gov-logo">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7gfv-x1x0P8VULB_FlJ-8g4Qs0yPffbjhqLhVATEu5g&s=10" alt="Jharkhand Logo">
+                <div>
+                    <h1>GOVERNMENT OF JHARKHAND</h1>
+                    <p>Official Website of the State</p>
                 </div>
+            </div>
+            <div class="gov-actions">
+                <button onclick="showLogin()" class="login-btn">🔐 Citizen Login</button>
+            </div>
+        </header>
 
-                <label class="urgent-checkbox">
-                    <input type="checkbox" id="urgent" name="urgent"> 
-                    <span>🚨 Mark as URGENT (Disaster / Life threatening)</span>
-                </label>
+        <!-- Hero Image / Banner -->
+        <div class="hero-banner">
+            <div class="collage-grid">
+                <img src="https://scx2.b-cdn.net/gfx/news/hires/2023/in-rural-india-summers.jpg" class="collage-img">
+                <img src="https://c.ndtvimg.com/2024-06/tiq7oipo_gurugram-waterlogging_625x300_28_June_24.jpeg?im=FitAndFill,algorithm=dnn,width=1200,height=738" class="collage-img">
+                <img src="https://c8.alamy.com/comp/2BW9FYE/high-tension-electric-wires-hanging-dangerously-from-a-broken-pole-on-a-city-road-after-cyclonic-storm-amphan-struck-landfall-at-kolkata-india-2BW9FYE.jpg" class="collage-img">
+            </div>
+            <div class="hero-text">
+                <h2>Jharkhand Societal Challenge Platform</h2>
+                <p>Connecting Citizens, Universities, and Industries for Real Solutions</p>
+                <button onclick="showLogin()" class="cta-btn">Get Started</button>
+            </div>
+        </div>
 
-                <label>Upload Evidence (Photo / Video)</label>
-                <input type="file" id="attachment" name="attachment" accept="image/*,video/*">
+        <!-- About Section -->
+        <div class="about-section">
+            <h2 class="section-title">About This Platform</h2>
+            <p class="section-subtitle">Empowering Citizens Through Innovation and Collaboration</p>
+            
+            <div class="about-content">
+                <h3>What is this website?</h3>
+                <p>
+                    The Jharkhand Societal Challenge Platform is a digital initiative designed to bridge the gap between the citizens of Jharkhand and the state's top academic institutions. It serves as a centralized hub where local issues are transformed into structured, solvable challenges.
+                </p>
 
-                <button type="submit">Submit Challenge</button>
+                <h3>What is the use of this website?</h3>
+                <ul>
+                    <li><strong>Report Local Issues:</strong> Citizens can submit detailed societal challenges—such as waterlogging, healthcare shortages, or sanitation problems—complete with photo/video evidence and GPS location.</li>
+                    <li><strong>Smart Auto-Matching:</strong> Our platform automatically analyzes the category of the problem and routes it to the exact University Department (like NIT Jamshedpur or RIMS Ranchi) best equipped to solve it.</li>
+                    <li><strong>Emergency Priority:</strong> Life-threatening issues can be flagged as "URGENT," ensuring they are sorted to the top of the queue for immediate attention.</li>
+                </ul>
+
+                <h3>How does it help?</h3>
+                <p>
+                    By collecting real-time data with location tags and risk scores, this platform helps the government and industry identify blind spots. It fosters a collaborative ecosystem where academic research meets ground reality, leading to faster, data-driven solutions for the people of Jharkhand.
+                </p>
+            </div>
+        </div>
+
+        <!-- Important Notice Strip -->
+        <div class="notice-strip">
+            <span>IMPORTANT:</span> This is a hackathon prototype. Please use 'Citizen Login' to submit challenges.
+        </div>
+    </div>
+
+    <!-- PART 2: CITIZEN LOGIN PAGE -->
+    <div id="loginPage" style="display: none;">
+        <!-- UPDATED BACKGROUND IMAGE -->
+        <div class="watermark" style="background-image: url('https://images.openai.com/static-rsc-4/sUwZUJ3tXm-YSjht0-ZgTe2G1kdnHLLhYUycIj7864kjJ6SxOSKeeqfaLNr3L0dugwx4NJak7icRAgvJLhCtgzjTFxIJshinzOheKiaE6fHQdrL5LVUm5yEPfPLP1UM9-NsJpa3A5WemaoQqXbEzKmFmKt_gCG32EwA1g7YlWo-oUdgJXN18HlEHwo3r4Cva?purpose=fullsize');"></div>
+        
+        <div class="login-box">
+            <div class="logo-area">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7gfv-x1x0P8VULB_FlJ-8g4Qs0yPffbjhqLhVATEu5g&s=10" alt="Jharkhand Logo" class="jh-logo">
+                <h2>Jharkhand Societal Platform</h2>
+                <p>Citizen Login</p>
+            </div>
+            <form id="loginForm">
+                <label>Full Name</label>
+                <input type="text" id="userName" placeholder="Enter your name" required>
+                
+                <label>Email Address</label>
+                <input type="email" id="userEmail" placeholder="Enter your email" required>
+                
+                <label>Password</label>
+                <input type="password" id="userPassword" placeholder="Enter your password" required>
+                
+                <!-- NEW CHECKBOX -->
+                <div class="terms-box">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms" class="terms-label">I agree to share my personal information to this website for developmental purposes.</label>
+                </div>
+                
+                <button type="submit">Login / Register</button>
             </form>
-        </section>
+            <button onclick="goHome()" class="back-btn">← Back to Home</button>
+            <p class="small-text">Protected by the Jharkhand State Innovation Council</p>
+        </div>
+    </div>
 
-        <!-- Right Side: Challenge Display -->
-        <section id="challenges-list">
-            <h2>Active Challenges & Assignments</h2>
-            <div id="challengeCards"></div>
-        </section>
+    <!-- PART 3: MAIN APPLICATION -->
+    <div id="mainApp" style="display: none;">
+        <header class="app-header">
+            <div class="header-content">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7gfv-x1x0P8VULB_FlJ-8g4Qs0yPffbjhqLhVATEu5g&s=10" alt="Jharkhand Logo" class="jh-logo-small">
+                <div>
+                    <h1>Jharkhand Societal Challenge Platform</h1>
+                    <p>Connecting Citizens, Universities, and Industries for Real Solutions</p>
+                </div>
+            </div>
+            <button onclick="logout()" class="logout-btn">Logout</button>
+        </header>
+
+        <div class="container">
+            <section id="submission-form">
+                <h2>Submit a Societal Challenge</h2>
+                <form id="challengeForm">
+                    <label>Challenge Title</label>
+                    <input type="text" id="title" name="title" required>
+
+                    <label>Category</label>
+                    <select id="category" name="category" required>
+                        <option value="">-- Select Category --</option>
+                        <option value="Agriculture">Agriculture</option>
+                        <option value="Water">Water Management</option>
+                        <option value="Sanitation">Sanitation</option>
+                        <option value="Disaster">Disaster Management</option>
+                        <option value="Education">Education</option>
+                        <option value="Healthcare">Healthcare</option>
+                        <option value="Urban">Urban Infrastructure</option>
+                    </select>
+
+                    <label>Detailed Description</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+
+                    <label>Location</label>
+                    <div class="location-input">
+                        <input type="text" id="location" name="location" placeholder="Enter address or use GPS" required>
+                        <button type="button" id="gpsBtn">📡 GPS</button>
+                    </div>
+
+                    <label class="urgent-checkbox">
+                        <input type="checkbox" id="urgent" name="urgent"> 
+                        <span>🚨 Mark as URGENT (Disaster / Life threatening)</span>
+                    </label>
+
+                    <label>Upload Evidence (Photo / Video)</label>
+                    <input type="file" id="attachment" name="attachment" accept="image/*,video/*">
+
+                    <button type="submit">Submit Challenge</button>
+                </form>
+            </section>
+
+            <section id="challenges-list">
+                <h2>Active Challenges & Assignments</h2>
+                <div id="challengeCards"></div>
+            </section>
+        </div>
     </div>
 
     <script src="script.js"></script>

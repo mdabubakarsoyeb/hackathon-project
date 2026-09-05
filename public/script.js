@@ -9,22 +9,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const challengeCards = document.getElementById('challengeCards');
 
     // FUNCTIONS TO SWITCH PAGES
-    window.showLogin = () => {
-        homePage.style.display = 'none';
-        loginPage.style.display = 'flex';
-    };
-
-    window.goHome = () => {
-        loginPage.style.display = 'none';
-        homePage.style.display = 'block';
-    };
-
-    window.logout = () => {
-        mainApp.style.display = 'none';
-        homePage.style.display = 'block';
-        loginForm.reset();
-        challengeCards.innerHTML = '';
-    };
+    window.showLogin = () => { homePage.style.display = 'none'; loginPage.style.display = 'flex'; };
+    window.goHome = () => { loginPage.style.display = 'none'; homePage.style.display = 'block'; };
+    window.logout = () => { mainApp.style.display = 'none'; homePage.style.display = 'block'; loginForm.reset(); challengeCards.innerHTML = ''; };
 
     // LOGIN LOGIC
     loginForm.addEventListener('submit', (e) => {
@@ -32,10 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const name = document.getElementById('userName').value;
         const terms = document.getElementById('terms').checked;
 
-        if (!terms) {
-            alert('⚠️ Please agree to the Terms & Conditions before logging in!');
-            return;
-        }
+        if (!terms) { alert('⚠️ Please agree to the Terms & Conditions before logging in!'); return; }
         
         loginPage.style.display = 'none';
         mainApp.style.display = 'block';
@@ -44,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadChallenges();
     });
 
-    // GPS FUNCTION
+    // GPS
     gpsBtn.addEventListener('click', () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -53,21 +37,45 @@ document.addEventListener('DOMContentLoaded', () => {
         } else { alert('Geolocation not supported.'); }
     });
 
-    // SUBMIT CHALLENGE
-    form.addEventListener('submit', async (e) => {
+    // SUBMIT CHALLENGE (WITH BASE64 IMAGE)
+    form.addEventListener('submit', (e) => {
         e.preventDefault();
-        const formData = new FormData(form);
-        alert("Submitting your challenge...");
+        
+        const title = document.getElementById('title').value;
+        const category = document.getElementById('category').value;
+        const description = document.getElementById('description').value;
+        const location = document.getElementById('location').value;
+        const urgent = document.getElementById('urgent').checked;
+        const fileInput = document.getElementById('attachment');
 
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                const base64Data = event.target.result.split(',')[1]; // Remove data:image/jpeg;base64,
+                sendData({ title, category, description, location, urgent, fileData: base64Data });
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        } else {
+            sendData({ title, category, description, location, urgent, fileData: null });
+        }
+    });
+
+    // SEND DATA TO BACKEND
+    async function sendData(data) {
+        alert("Submitting your challenge...");
         try {
-            const response = await fetch('/api/submit', { method: 'POST', body: formData });
+            const response = await fetch('/api/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
             if (response.ok) {
                 alert('✅ Challenge submitted! Assigned to a University.');
                 form.reset();
                 loadChallenges();
             } else { alert('❌ Failed to submit.'); }
         } catch (error) { alert('❌ Error connecting to server.'); }
-    });
+    }
 
     // LOAD CHALLENGES
     async function loadChallenges() {
@@ -89,9 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             let mediaHtml = '';
             if (challenge.fileUrl) {
-                const ext = challenge.fileUrl.split('.').pop();
-                if (['jpg','jpeg','png','gif'].includes(ext)) mediaHtml = `<img src="${challenge.fileUrl}">`;
-                else mediaHtml = `<video src="${challenge.fileUrl}" controls></video>`;
+                mediaHtml = `<img src="${challenge.fileUrl}">`;
             }
 
             let urgentBadge = challenge.urgent ? `<div class="urgent-badge">🚨 CRITICAL</div>` : '';
@@ -122,7 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // UPVOTE FUNCTION
     window.upvote = async (id) => {
         await fetch(`/api/upvote/${id}`, { method: 'POST' });
         loadChallenges();

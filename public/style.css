@@ -24,3 +24,13 @@ button:hover { background-color: #d35400; }
 .risk-medium { background-color: #fdebd0; color: #ba4a00; border: 1px solid #ba4a00; }
 .risk-high { background-color: #fadbd8; color: #c0392b; border: 1px solid #c0392b; }
 .risk-label { background: white; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr; /* Makes it one single column on mobile */
+    }
+    header h1 {
+        font-size: 24px; /* Makes the title smaller */
+    }
+}

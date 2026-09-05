@@ -1,11 +1,50 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const homePage = document.getElementById('homePage');
+    const loginPage = document.getElementById('loginPage');
+    const mainApp = document.getElementById('mainApp');
+    const loginForm = document.getElementById('loginForm');
     const form = document.getElementById('challengeForm');
     const gpsBtn = document.getElementById('gpsBtn');
     const locationInput = document.getElementById('location');
     const challengeCards = document.getElementById('challengeCards');
 
-    loadChallenges();
+    // FUNCTIONS TO SWITCH PAGES
+    window.showLogin = () => {
+        homePage.style.display = 'none';
+        loginPage.style.display = 'flex';
+    };
 
+    window.goHome = () => {
+        loginPage.style.display = 'none';
+        homePage.style.display = 'block';
+    };
+
+    window.logout = () => {
+        mainApp.style.display = 'none';
+        homePage.style.display = 'block';
+        loginForm.reset();
+        challengeCards.innerHTML = '';
+    };
+
+    // LOGIN LOGIC
+    loginForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = document.getElementById('userName').value;
+        const terms = document.getElementById('terms').checked;
+
+        if (!terms) {
+            alert('⚠️ Please agree to the Terms & Conditions before logging in!');
+            return;
+        }
+        
+        loginPage.style.display = 'none';
+        mainApp.style.display = 'block';
+        
+        alert(`Welcome, ${name}! You are now logged in.`);
+        loadChallenges();
+    });
+
+    // GPS FUNCTION
     gpsBtn.addEventListener('click', () => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition((position) => {
@@ -14,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else { alert('Geolocation not supported.'); }
     });
 
+    // SUBMIT CHALLENGE
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const formData = new FormData(form);
@@ -29,11 +69,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } catch (error) { alert('❌ Error connecting to server.'); }
     });
 
+    // LOAD CHALLENGES
     async function loadChallenges() {
         const response = await fetch('/api/challenges');
         let challenges = await response.json();
         
-        // SORT: Urgent issues first, then highest upvotes
         challenges.sort((a, b) => {
             if (a.urgent && !b.urgent) return -1;
             if (!a.urgent && b.urgent) return 1;
@@ -56,7 +96,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
             let urgentBadge = challenge.urgent ? `<div class="urgent-badge">🚨 CRITICAL</div>` : '';
 
-            // New Risk Score Display
             card.innerHTML = `
                 ${urgentBadge}
                 <div class="risk-box risk-${challenge.riskLevel.toLowerCase()}">
@@ -83,6 +122,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // UPVOTE FUNCTION
     window.upvote = async (id) => {
         await fetch(`/api/upvote/${id}`, { method: 'POST' });
         loadChallenges();

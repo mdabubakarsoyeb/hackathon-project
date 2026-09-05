@@ -1,0 +1,26 @@
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background-color: #f4f4f4; color: #333; }
+header { background-color: #1a5276; color: white; padding: 20px; text-align: center; }
+.container { max-width: 1200px; margin: 20px auto; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+section { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+form { display: flex; flex-direction: column; gap: 10px; }
+label { font-weight: bold; margin-top: 10px; }
+input, select, textarea { padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+button { padding: 10px; background-color: #e67e22; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; margin-top: 10px; }
+button:hover { background-color: #d35400; }
+.location-input { display: flex; gap: 10px; }
+.location-input input { flex: 1; }
+.urgent-checkbox { display: flex; align-items: center; gap: 10px; font-size: 14px; background: #fdedec; padding: 10px; border-radius: 5px; border: 1px solid #e74c3c; }
+#challengeCards { display: grid; gap: 15px; margin-top: 20px; max-height: 600px; overflow-y: auto; }
+.card { border: 1px solid #ddd; padding: 15px; border-radius: 8px; background-color: #fafafa; position: relative; }
+.card.urgent { border: 2px solid #e74c3c; background-color: #fff5f5; }
+.card img, .card video { max-width: 100%; border-radius: 4px; margin-top: 10px; }
+.partner-box { background-color: #eaf2f8; border-left: 4px solid #2980b9; padding: 10px; margin-top: 10px; font-size: 14px; }
+.upvote-btn { background-color: #27ae60; margin-top: 10px; font-size: 14px; }
+.urgent-badge { background-color: #e74c3c; color: white; padding: 4px 8px; font-size: 12px; border-radius: 4px; position: absolute; top: 10px; right: 10px; }
+
+/* New Risk Score Styles */
+.risk-box { padding: 8px; border-radius: 4px; margin-bottom: 10px; font-size: 14px; font-weight: bold; display: flex; justify-content: space-between; }
+.risk-low { background-color: #d5f5e3; color: #1e8449; border: 1px solid #1e8449; }
+.risk-medium { background-color: #fdebd0; color: #ba4a00; border: 1px solid #ba4a00; }
+.risk-high { background-color: #fadbd8; color: #c0392b; border: 1px solid #c0392b; }
+.risk-label { background: white; padding: 2px 8px; border-radius: 10px; font-size: 12px; }
